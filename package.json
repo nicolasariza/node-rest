@@ -5,7 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "tsc && node ./dist/app.js",
+    "start": "node ./dist/app.js",
+    "postinstall": "npm run tsc",
     "dev": "nodemon -x ts-node src/app.ts"
   },
   "repository": {
