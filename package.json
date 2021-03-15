@@ -4,7 +4,8 @@
   "description": "Project with nodejs, express, mongo etc",
   "main": "dist/app.js",
   "scripts": {
-    "start": "ts-node src/app.ts",
+    "tsc": "tsc",
+    "start": "tsc && node ./dist/app.js",
     "dev": "nodemon -x ts-node src/app.ts"
   },
   "repository": {
