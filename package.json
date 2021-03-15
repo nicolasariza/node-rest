@@ -4,9 +4,8 @@
   "description": "Project with nodejs, express, mongo etc",
   "main": "dist/app.js",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node ./dist/app.js",
-    "dev": "nodemon --watch src -e ts,js --exec npm start"
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon -x ts-node src/app.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
