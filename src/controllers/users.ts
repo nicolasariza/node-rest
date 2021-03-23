@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+import bcryptjs from 'bcryptjs';
+import User from '../models/user';
+import { validationResult } from 'express-validator';
 
 export const getUsers = (req: Request, res: Response) => {
 
@@ -11,13 +14,19 @@ export const getUsers = (req: Request, res: Response) => {
     });
 }
 
-export const postUsers = (req: Request, res: Response) => {
+export const postUsers = async (req: Request, res: Response) => {
 
-    const { name } = req.body;
+    const { name, email, password, role } = req.body;
+    const user = new User({
+        name, email, password, role
+    });
 
+    const salt = bcryptjs.genSaltSync(10);
+    user.password = bcryptjs.hashSync(password, salt);
+
+    await user.save();
     res.json({
-        msg:'POST - users',
-        name
+        user
     });
 }
 
