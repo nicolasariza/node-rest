@@ -1,9 +1,9 @@
 import Role from '../models/role';
 import User from '../models/user';
 
-const roleValid = async (role = ''): Promise<void> => {
-    const existRole = await Role.findOne({ role });
-    if (!existRole ){
+const roleExists = async (role = ''): Promise<void> => {
+    const verifyRole = await Role.findOne({ role });
+    if (!verifyRole ){
         throw new Error(`Role ${role} is invalid`)
     }
 };
@@ -11,11 +11,19 @@ const roleValid = async (role = ''): Promise<void> => {
 const emailExists = async (email = ''): Promise<void> => {
     const verifyEmail = await User.findOne({email});
     if( verifyEmail ){
-        throw new Error(`Email ${email} exists`)
+        throw new Error(`Email ${email} exists`);
     }
 };
 
+const userExists = async(id = ''): Promise<void> => {
+    const verifyUser = await User.findById(id);
+    if( !verifyUser ){
+        throw new Error(`Id ${id} doesn't exists`);
+    }
+}
+
 export {
-    roleValid,
-    emailExists
+    roleExists,
+    emailExists,
+    userExists
 }

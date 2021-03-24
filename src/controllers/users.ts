@@ -30,13 +30,20 @@ export const postUsers = async (req: Request, res: Response) => {
     });
 }
 
-export const putUsers = (req: Request, res: Response) => {
+export const putUsers = async (req: Request, res: Response) => {
 
     const { id } = req.params;
+    const { password, google, ...rest } = req.body;
+
+    if( password ) {
+        const salt = bcryptjs.genSaltSync(10);
+        rest.password = bcryptjs.hashSync(password, salt);
+    }
+
+    const user = await User.findByIdAndUpdate( id, rest );
 
     res.json({
-        msg:'PUT - users',
-        id
+        user
     });
 }
 
