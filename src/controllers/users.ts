@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
 import User from '../models/user';
-import { validationResult } from 'express-validator';
 
-export const getUsers = (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
 
-    const { page = '1', limit } = req.query;
+    const { limit = 5, from = 0 } = req.query;
+    const query = { state: true };
+
+    const [total, users] = await Promise.all([
+        User.countDocuments(query),
+        User.find(query).skip(Number(from)).limit(Number(limit))
+    ]);
 
     res.json({
-        msg:'GET - users',
-        page,
-        limit
+        total,
+        users
     });
 }
 
