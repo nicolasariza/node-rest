@@ -51,12 +51,16 @@ export const putUsers = async (req: Request, res: Response) => {
     });
 }
 
-export const deleteUsers = (req: Request, res: Response) => {
+export const deleteUsers = async (req: Request, res: Response) => {
 
     const { id } = req.params;
 
+    // Delete user
+    // const user = await User.findByIdAndDelete(id);
+
+    const user = await User.findByIdAndUpdate(id, {state: false});
+
     res.json({
-        msg:'DELETE - users',
-        id
+        user
     });
 }
