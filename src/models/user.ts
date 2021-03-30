@@ -40,4 +40,10 @@ const UserSchema: Schema = new Schema({
     }
 });
 
+UserSchema.methods.toJSON = function() {
+    const { __v, _id, ...user} = this.toObject();
+    user.id = _id;
+    return user;
+}
+
 export default mongoose.model<IUser>('User', UserSchema);
