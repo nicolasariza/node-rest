@@ -7,6 +7,7 @@ import { deleteUsers } from '../controllers/users';
 import { validateFields } from '../middlewares/validator-error';
 import { validateJWT } from '../middlewares/validator-jwt';
 import { roleExists, emailExists, userExists } from '../helpers/db-validators';
+import { validateRole } from '../middlewares/validator-role';
 
 const router = Router();
 
@@ -26,6 +27,7 @@ router.put('/:id', [
 ],putUsers);
 router.delete('/:id', [
     validateJWT,
+    validateRole,
     check('id', 'id is invalid').isMongoId(),
     check('id').custom( userExists ),
     validateFields
