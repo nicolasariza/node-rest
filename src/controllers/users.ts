@@ -29,7 +29,7 @@ export const postUsers = async (req: Request, res: Response) => {
     user.password = bcryptjs.hashSync(password, salt);
 
     await user.save();
-    res.json({
+    res.status(201).json({
         user
     });
 }
