@@ -17,6 +17,12 @@ const CategorySchema: Schema = new Schema({
         ref: 'User',
         required: true
     }
-})
+});
+
+CategorySchema.methods.toJSON = function() {
+    const { __v, _id,  ...category} = this.toObject();
+    category.id = _id;
+    return category;
+}
 
 export default mongoose.model<ICategory>('Category', CategorySchema);

@@ -1,3 +1,4 @@
+import Category from '../models/category';
 import Role from '../models/role';
 import User from '../models/user';
 
@@ -22,8 +23,16 @@ const userExists = async(id = ''): Promise<void> => {
     }
 }
 
+const categoryExists = async(id = ''): Promise<void> => {
+    const verifyCategory = await Category.findById(id);
+    if( !verifyCategory ){
+        throw new Error(`Id ${id} doesn't exists`);
+    }
+}
+
 export {
     roleExists,
     emailExists,
-    userExists
+    userExists,
+    categoryExists
 }
