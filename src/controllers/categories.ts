@@ -14,7 +14,7 @@ export const getCategories = async (req: Request, res: Response) => {
         total,
         categories
     });
-}
+};
 
 export const getCategory = async (req: Request, res: Response) => {
     
@@ -25,7 +25,7 @@ export const getCategory = async (req: Request, res: Response) => {
     res.json({
         categories
     });
-}
+};
 
 export const postCategories = async (req: Request, res: Response) => {
 
@@ -48,4 +48,19 @@ export const postCategories = async (req: Request, res: Response) => {
     await category.save();
 
     res.status(201).json(category)
+};
+
+export const putCategories = async (req: Request, res: Response) => {
+
+    const { id } = req.params;
+    const { state, user, ...rest } = req.body;
+
+    rest.name = rest.name.toUpperCase();
+    rest.user = req.user.id;
+
+    const category = await Category.findByIdAndUpdate( id, rest, {new: true});
+
+    res.json({
+        category
+    });
 }
