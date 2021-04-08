@@ -3,6 +3,7 @@ import cors from 'cors';
 import authRoutes from '../routes/auth';
 import userRoutes from '../routes/user';
 import categoriesRoutes from '../routes/categories';
+import productsRoutes from '../routes/products';
 import { dbConnection } from '../database/config';
 
 class Server {
@@ -12,7 +13,8 @@ class Server {
     private apiPaths = {
         auth: '/api/auth',
         categories: '/api/categories',
-        users: '/api/users'
+        users: '/api/users',
+        products: '/api/products'
     }
 
     constructor() {
@@ -45,6 +47,7 @@ class Server {
         this.app.use(this.apiPaths.auth, authRoutes);
         this.app.use(this.apiPaths.users, userRoutes);
         this.app.use(this.apiPaths.categories, categoriesRoutes);
+        this.app.use(this.apiPaths.products, productsRoutes);
     }
 
     listen(): void {
