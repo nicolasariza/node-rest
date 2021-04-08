@@ -58,7 +58,7 @@ export const deleteUsers = async (req: Request, res: Response) => {
     // Delete user
     // const user = await User.findByIdAndDelete(id);
 
-    const user = await User.findByIdAndUpdate(id, {state: false});
+    const user = await User.findByIdAndUpdate(id, {state: false}, {new: true});
 
     res.json({
         user

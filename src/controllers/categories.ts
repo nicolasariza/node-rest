@@ -63,4 +63,14 @@ export const putCategories = async (req: Request, res: Response) => {
     res.json({
         category
     });
+};
+
+export const deleteCategories = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const category = await Category.findByIdAndUpdate(id, {state: false}, {new: true});
+
+    res.json({
+        category
+    });
 }
