@@ -1,4 +1,5 @@
 import Category from '../models/category';
+import Product from '../models/product';
 import Role from '../models/role';
 import User from '../models/user';
 
@@ -30,9 +31,17 @@ const categoryExists = async(id = ''): Promise<void> => {
     }
 }
 
+const productExists = async(id = ''): Promise<void> => {
+    const verifyProduct = await Product.findById(id);
+    if( !verifyProduct ){
+        throw new Error(`Id ${id} doesn't exists`);
+    } 
+}
+
 export {
     roleExists,
     emailExists,
     userExists,
-    categoryExists
+    categoryExists,
+    productExists
 }
